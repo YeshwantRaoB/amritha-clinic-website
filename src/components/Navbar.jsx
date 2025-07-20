@@ -92,30 +92,28 @@ const Navbar = () => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
+        <div className="flex justify-between items-center h-14 md:h-16">
           {/* Logo Section */}
           <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
             <motion.div
               className="flex items-center"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
               <motion.img
                 src="/logo.png"
                 alt="Amritha Clinic Logo"
-                className="h-10 w-auto object-contain"
+                className="h-8 w-auto object-contain"
                 variants={itemVariants}
               />
-              <div className="ml-2 md:ml-3">
+              <div className="ml-2">
                 <motion.h1 
-                  className="text-base md:text-lg font-bold text-blue-950 group-hover:text-blue-700 transition-colors duration-300"
+                  className="text-lg font-bold text-blue-950 group-hover:text-blue-700 transition-colors duration-300"
                   variants={itemVariants}
                 >
-                  Amritha Clinic
+                  <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">Amritha Clinic</span>
                 </motion.h1>
                 <motion.p 
-                  className="text-[10px] md:text-xs text-blue-700/80 group-hover:text-blue-900 transition-colors duration-300 hidden sm:block"
+                  className="text-[10px] text-blue-700/80 group-hover:text-blue-900 transition-colors duration-300 hidden sm:block"
                   variants={itemVariants}
                 >
                   Multispeciality & Diagnostic Center

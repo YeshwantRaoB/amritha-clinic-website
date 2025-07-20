@@ -47,7 +47,7 @@ export default function Footer() {
         >
           <h3 className="text-blue-900 text-lg font-bold mb-4 tracking-wide">Quick Links</h3>
           <div className="grid grid-cols-2 gap-x-4 gap-y-3 w-full">
-            {['Home', 'About Us', 'Services', 'Gallery', 'FAQ', 'Careers', 'Contact'].map((link, i) => (
+            {['Home', 'About Us', 'Services', 'Gallery', 'FAQ','Book an Appointment', 'Careers', 'Contact'].map((link, i) => (
               <motion.div 
                 key={link} 
                 custom={i}
@@ -57,7 +57,11 @@ export default function Footer() {
                 className="w-full"
               >
                 <Link
-                  to={link === 'Home' ? '/' : `/${link.toLowerCase().replace(/\s+/g, '-')}`}
+                  to={
+                    link === 'Home' ? '/' :
+                    link === 'Book an Appointment' ? '/appointment' :
+                    `/${link.toLowerCase().replace(/\s+/g, '-')}`
+                  }
                   className="block text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200 px-3 py-2 -mx-2 rounded-lg hover:bg-blue-50 active:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
                   {link}

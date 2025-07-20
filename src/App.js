@@ -12,7 +12,6 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Careers from './components/Careers';
 import Appointment from './components/Appointment';
-
 // Component to handle scrolling to top on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
