@@ -96,7 +96,20 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-white min-h-screen py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    <div className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 min-h-screen pt-24 sm:pt-28 pb-12 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+      {/* Decorative floating shapes */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <motion.div
+          className="absolute top-0 left-0 w-40 h-40 bg-blue-100 rounded-full blur-2xl opacity-40"
+          animate={{ y: [0, 30, 0], x: [0, 10, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-30"
+          animate={{ y: [0, -20, 0], x: [0, -10, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -112,34 +125,32 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
           {/* Contact Information */}
           <motion.div 
-            className="space-y-8"
+            className="space-y-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg p-6 md:p-8 border border-blue-100 flex flex-col justify-center"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
           >
-            {contactInfo.map((item, index) => (
-              <motion.div 
-                key={index} 
-                className="flex items-start p-4 sm:p-5 md:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+            {contactInfo.map((info, i) => (
+              <motion.div
+                key={info.title}
+                className="flex items-start gap-4 bg-white/90 rounded-xl shadow p-4 border border-blue-50 hover:shadow-lg transition-all duration-300 mb-2"
                 variants={itemVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ y: -2, scale: 1.03 }}
               >
-                <div className="flex-shrink-0 p-2 sm:p-3 bg-blue-50 rounded-lg mr-3 sm:mr-4">
-                  {item.icon}
+                <div className="flex-shrink-0 bg-blue-50 rounded-full p-2 mr-2">
+                  {info.icon}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <p className="text-gray-600 whitespace-pre-line text-sm sm:text-base">{item.text}</p>
-                  {item.link && (
-                    <a 
-                      href={item.link} 
-                      className="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 inline-block"
-                    >
-                      
-                    </a>
+                  <div className="text-blue-900 font-semibold text-base mb-1">{info.title}</div>
+                  {info.link && info.link !== '#' ? (
+                    <a href={info.link} className="text-blue-600 hover:underline text-sm break-all">{info.text}</a>
+                  ) : (
+                    <div className="text-gray-700 text-sm whitespace-pre-line">{info.text}</div>
                   )}
                 </div>
               </motion.div>
