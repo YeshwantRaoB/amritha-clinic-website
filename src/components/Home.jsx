@@ -180,7 +180,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Link
-              to="/contact"
+              to="/appointment"
               className="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-base"
             >
               Book an Appointment
@@ -319,7 +319,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/contact"
+                to="/appointment"
                 className="px-8 py-4 bg-white text-blue-700 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Book an Appointment

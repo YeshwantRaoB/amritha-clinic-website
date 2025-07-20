@@ -9,6 +9,7 @@ import Gallery from './components/Gallery';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Careers from './components/Careers';
+import Appointment from './components/Appointment';
 
 // Component to handle scrolling to top on route change
 const ScrollToTop = () => {
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/appointment" element={<Appointment />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
