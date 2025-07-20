@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, Stethoscope, HeartPulse, Award, Smile, Mail, Briefcase, Users, CheckCircle, ChevronRight, Star } from 'lucide-react';
+
+// Image loading component with skeleton
+/* const ImageWithLoader = ({ src, alt, className, ...props }) => {
+  const [loaded, setLoaded] = useState(false);
+  
+  return (
+    <div className="relative w-full h-full">
+      {!loaded && (
+        <div className="absolute inset-0 bg-gray-100 animate-pulse rounded-lg"></div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} ${!loaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+        {...props}
+      />
+    </div>
+  );
+}; */
 
 const positions = [
   {
@@ -69,7 +90,87 @@ const steps = [
   { icon: <Stethoscope className="w-8 h-8 text-blue-500" />, title: 'Join Us', desc: 'Become a valued member of Amritha Clinic.' },
 ];
 
+/* const PositionCard = ({ position, index }) => (
+  <motion.div
+    className="bg-white/90 backdrop-blur-sm border border-blue-50 rounded-2xl p-5 md:p-7 flex flex-col hover:shadow-xl transition-all duration-300 cursor-pointer h-full"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+  >
+    <div className="mb-3">{position.icon}</div>
+    <h2 className="text-lg md:text-xl font-bold text-blue-800 mb-1">{position.title}</h2>
+    <div className="text-blue-600 text-sm mb-2">{position.dept}</div>
+    <div className="flex items-center text-gray-600 text-sm mb-1">
+      <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      {position.location}
+    </div>
+    <div className="flex items-center text-gray-600 text-sm mb-3">
+      <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      {position.shift}
+    </div>
+    <p className="text-gray-700 text-sm mb-4 flex-grow">{position.description}</p>
+    <div className="flex flex-wrap gap-2 mb-4">
+      {position.perks.map((perk) => (
+        <span key={perk} className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">
+          {perk}
+        </span>
+      ))}
+    </div>
+    <motion.a
+      href={`mailto:${position.contact}?subject=Application for ${position.title} Position`}
+      className="inline-flex items-center text-blue-600 font-semibold text-sm group mt-auto w-fit"
+      whileHover={{ x: 5 }}
+      transition={{ duration: 0.3 }}
+    >
+      Apply Now
+      <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
+    </motion.a>
+  </motion.div>
+); */
+
+/* const TestimonialCard = ({ testimonial, index }) => (
+  <motion.div
+    key={testimonial.name}
+    className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md p-6 flex flex-col items-center h-full hover:shadow-xl transition-shadow duration-300"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+  >
+    <div className="relative mb-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full -z-10 transform rotate-6"></div>
+      <ImageWithLoader 
+        src={testimonial.img} 
+        alt={testimonial.name}
+        className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
+      />
+    </div>
+    <h3 className="text-lg font-semibold text-blue-800 mb-1">{testimonial.name}</h3>
+    <div className="text-blue-500 text-sm font-medium mb-3">{testimonial.role}</div>
+    <p className="text-gray-600 text-center text-sm md:text-base leading-relaxed">"{testimonial.quote}"</p>
+  </motion.div>
+); */
+
 export default function Careers() {
+/*   const [setIsMobile] = useState(false);
+ */
+  useEffect(() => {
+    const checkMobile = () => {
+/*       setIsMobile(window.innerWidth < 768);
+ */    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="overflow-x-hidden bg-gradient-to-br from-blue-50/60 via-white/80 to-blue-100/60">
       {/* Hero Section */}

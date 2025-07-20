@@ -49,8 +49,30 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    
+    // Close menu when route changes
+    const unlisten = () => {
+      setIsMenuOpen(false);
+    };
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      unlisten();
+    };
+  }, [location]);
+  
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   return (
     <motion.nav
@@ -70,12 +92,13 @@ const Navbar = () => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo Section */}
-          <Link to="/" className="flex items-center space-x-2 group">
+          <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
             <motion.div
               className="flex items-center"
               whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
               <motion.img
@@ -84,15 +107,15 @@ const Navbar = () => {
                 className="h-10 w-auto object-contain"
                 variants={itemVariants}
               />
-              <div className="ml-3">
+              <div className="ml-2 md:ml-3">
                 <motion.h1 
-                  className="text-lg font-bold text-blue-950 group-hover:text-blue-700 transition-colors duration-300"
+                  className="text-base md:text-lg font-bold text-blue-950 group-hover:text-blue-700 transition-colors duration-300"
                   variants={itemVariants}
                 >
                   Amritha Clinic
                 </motion.h1>
                 <motion.p 
-                  className="text-xs text-blue-700/80 group-hover:text-blue-900 transition-colors duration-300"
+                  className="text-[10px] md:text-xs text-blue-700/80 group-hover:text-blue-900 transition-colors duration-300 hidden sm:block"
                   variants={itemVariants}
                 >
                   Multispeciality & Diagnostic Center
@@ -103,58 +126,52 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            <ul className="flex space-x-1">
-              {navLinks.map((link) => (
-                <motion.li key={link.name} variants={itemVariants}>
-                  <Link
-                    to={link.path}
-                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-300 ${
-                      location.pathname === link.path
-                        ? 'bg-blue-100 text-blue-900 shadow-sm font-semibold'
-                        : 'text-blue-800 hover:bg-blue-50 hover:text-blue-900'
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-            <motion.div 
-              className="ml-4"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a
-                href="tel:+1234567890"
-                className="flex items-center px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow"
-              >
-                <Phone className="h-4 w-4 mr-2" />
-                Call Now
-              </a>
-            </motion.div>
+            {navLinks.map((link) => (
+              <motion.div key={link.name} variants={itemVariants}>
+                <Link
+                  to={link.path}
+                  className={`px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                    location.pathname === link.path
+                      ? 'text-blue-700 bg-blue-50/50 font-semibold shadow-inner'
+                      : 'text-blue-900 hover:text-blue-700 hover:bg-blue-50/30'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
           </div>
+          <motion.div 
+            className="ml-4"
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <a
+              href="tel:+1234567890"
+              className="flex items-center px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow"
+            >
+              <Phone className="h-4 w-4 mr-2" />
+              Call Now
+            </a>
+          </motion.div>
 
           {/* Mobile menu button */}
-          <motion.div 
-            className="md:hidden flex items-center"
-            variants={itemVariants}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
+          <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-blue-800 hover:text-blue-900 hover:bg-blue-100/80 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-all duration-200"
-              aria-expanded="false"
+              className="p-2 -mr-2 text-blue-900 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-full transition-all"
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              <span className="sr-only">Open main menu</span>
               {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
+                <X className="h-6 w-6" aria-hidden="true" />
               ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
+                <Menu className="h-6 w-6" aria-hidden="true" />
               )}
             </button>
-          </motion.div>
+          </div>
         </div>
       </div>
 

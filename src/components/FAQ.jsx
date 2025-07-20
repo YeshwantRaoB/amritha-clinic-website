@@ -75,20 +75,21 @@ export default function FAQ() {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 py-16 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 pt-24 pb-10 sm:pt-28 sm:pb-14 md:pt-32 md:pb-16 px-4 sm:px-6 lg:px-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      style={{ paddingTop: '6rem' }} /* Extra padding to account for fixed navbar */
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-14 md:mb-16 px-2 sm:px-0"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, type: 'spring' }}
         >
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -96,7 +97,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </motion.h1>
           <motion.p 
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -106,31 +107,37 @@ export default function FAQ() {
         </motion.div>
 
         <motion.div 
-          className="space-y-6"
+          className="space-y-3 sm:space-y-4 md:space-y-5"
           variants={container}
           initial="hidden"
           animate="show"
+          aria-label="Frequently asked questions"
         >
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
               variants={item}
-              className={`bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 ${openIndex === index ? 'ring-2 ring-blue-500' : 'hover:shadow-lg'}`}
-              whileHover={{ scale: 1.005 }}
+              className={`bg-white rounded-lg sm:rounded-xl shadow-sm sm:shadow-md overflow-hidden transition-all duration-300 ${openIndex === index ? 'ring-2 ring-blue-500' : 'hover:shadow-md sm:hover:shadow-lg'}`}
+              whileHover={{ scale: 1.002 }}
+              whileTap={{ scale: 0.998 }}
+              aria-expanded={openIndex === index}
             >
               <motion.button
-                className={`w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none transition-colors ${openIndex === index ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' : 'bg-white text-gray-800 hover:bg-gray-50'}`}
+                className={`w-full px-4 sm:px-5 md:px-6 py-4 sm:py-5 text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-blue-50 rounded-lg sm:rounded-xl transition-colors ${openIndex === index ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' : 'bg-white text-gray-800 hover:bg-gray-50'}`}
                 onClick={() => toggleFAQ(index)}
-                whileHover={{ backgroundColor: openIndex !== index ? '#f9fafb' : '' }}
+                whileHover={{ backgroundColor: openIndex !== index ? 'rgba(249, 250, 251, 0.8)' : '' }}
+                aria-controls={`faq-${index}`}
+                aria-label={`${openIndex === index ? 'Collapse' : 'Expand'} question about ${faq.question}`}
               >
-                <span className="text-lg font-semibold text-left pr-4">{faq.question}</span>
+                <span className="text-base sm:text-lg font-semibold text-left pr-3 sm:pr-4 leading-tight">{faq.question}</span>
                 <motion.span
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3, type: 'spring' }}
-                  className="flex-shrink-0 ml-4"
+                  className="flex-shrink-0 ml-3 sm:ml-4 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"
+                  aria-hidden="true"
                 >
                   <svg
-                    className={`w-6 h-6 ${openIndex === index ? 'text-white' : 'text-blue-600'}`}
+                    className={`w-5 h-5 sm:w-6 sm:h-6 ${openIndex === index ? 'text-white' : 'text-blue-600'}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -139,34 +146,49 @@ export default function FAQ() {
                   </svg>
                 </motion.span>
               </motion.button>
-              <AnimatePresence>
+              <AnimatePresence initial={false}>
                 {openIndex === index && (
                   <motion.div
+                    id={`faq-${index}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${index}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ 
                       height: 'auto', 
                       opacity: 1,
                       transition: {
-                        height: { duration: 0.3 },
-                        opacity: { duration: 0.2, delay: 0.1 }
+                        height: { 
+                          duration: 0.3,
+                          ease: [0.4, 0, 0.2, 1]
+                        },
+                        opacity: { 
+                          duration: 0.2, 
+                          delay: 0.1 
+                        }
                       }
                     }}
                     exit={{ 
                       height: 0, 
                       opacity: 0,
                       transition: {
-                        height: { duration: 0.2 },
-                        opacity: { duration: 0.1 }
+                        height: { 
+                          duration: 0.2,
+                          ease: [0.4, 0, 0.2, 1]
+                        },
+                        opacity: { 
+                          duration: 0.1 
+                        }
                       }
                     }}
                     className="overflow-hidden"
+                    transition={{ type: 'spring', damping: 25, stiffness: 500 }}
                   >
-                    <div className="px-6 py-4 bg-white text-gray-700 border-t border-gray-100">
+                    <div className="px-4 sm:px-5 md:px-6 py-3 sm:py-4 bg-white text-gray-700 border-t border-gray-100">
                       <motion.p 
-                        className="leading-relaxed"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
+                        className="text-sm sm:text-base leading-relaxed text-gray-700"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1, duration: 0.2 }}
                       >
                         {faq.answer}
                       </motion.p>
@@ -178,42 +200,50 @@ export default function FAQ() {
           ))}
         </motion.div>
 
-        <motion.div 
-          className="mt-20 text-center bg-white p-8 rounded-2xl shadow-lg"
+        <motion.section 
+          className="mt-14 sm:mt-16 md:mt-20 text-center bg-white p-6 sm:p-7 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, type: 'spring' }}
-          whileHover={{ y: -5, transition: { duration: 0.3 } }}
+          transition={{ delay: 0.4, type: 'spring', stiffness: 100, damping: 12 }}
+          whileHover={{ y: -3, transition: { duration: 0.2 } }}
+          aria-labelledby="contact-heading"
         >
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Still have questions?</h3>
-            <p className="text-gray-600 mb-6 text-lg">Our friendly team is here to help you with any questions you might have.</p>
-            <motion.div className="flex flex-col sm:flex-row justify-center gap-4">
+            <h3 id="contact-heading" className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">Still have questions?</h3>
+            <p className="text-gray-600 mb-5 sm:mb-6 text-base sm:text-lg">Our friendly team is here to help you with any questions you might have.</p>
+            <motion.div 
+              className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
               <motion.a
                 href="/contact"
-                className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
-                whileHover={{ scale: 1.03, boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)' }}
+                className="px-5 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center text-sm sm:text-base"
+                whileHover={{ scale: 1.02, boxShadow: '0 4px 12px rgba(37, 99, 235, 0.25)' }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Contact us for more information"
               >
                 Contact Us
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </motion.a>
               <motion.a
                 href="tel:+1234567890"
-                className="px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center"
-                whileHover={{ scale: 1.03, backgroundColor: 'rgob(239, 246, 255, 0.5)' }}
+                className="px-5 sm:px-6 py-2.5 sm:py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center text-sm sm:text-base"
+                whileHover={{ scale: 1.02, backgroundColor: 'rgba(239, 246, 255, 0.5)' }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Call us at (123) 456-7890"
               >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 (123) 456-7890
               </motion.a>
             </motion.div>
           </div>
-        </motion.div>
+        </motion.section>
       </div>
     </motion.div>
   );

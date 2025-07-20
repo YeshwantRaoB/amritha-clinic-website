@@ -150,13 +150,13 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-8 inline-block px-6 py-2 rounded-full bg-white/20 backdrop-blur-sm text-base sm:text-lg font-medium"
+            className="mb-6 sm:mb-8 inline-block px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-sm text-sm sm:text-base font-medium whitespace-nowrap overflow-hidden text-ellipsis max-w-[90vw]"
           >
             Welcome to Amritha Multispeciality Clinic & Diagnostic Center
           </motion.div>
           
           <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-8"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 sm:mb-8 px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -165,7 +165,7 @@ export default function Home() {
           </motion.h1>
           
           <motion.p 
-            className="text-xl md:text-2xl max-w-4xl mx-auto mb-12 text-white/90 font-light"
+            className="text-base sm:text-xl md:text-2xl max-w-4xl mx-auto mb-8 sm:mb-12 px-4 text-white/90 font-light leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -174,30 +174,30 @@ export default function Home() {
           </motion.p>
           
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Link
               to="/appointment"
-              className="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-base"
+              className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg active:shadow-inner transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               Book an Appointment
-              <ArrowRight className="w-6 h-6" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
             <a
               href="tel:+1234567890"
-              className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg shadow-sm hover:shadow transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-base hover:bg-white/10"
+              className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg shadow-sm hover:shadow active:shadow-inner transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base hover:bg-white/10 active:bg-white/20"
             >
-              <PhoneCall className="w-5 h-5" />
-              Emergency Call
+              <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>Emergency Call</span>
             </a>
           </motion.div>
         </div>
         
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center"
+        <motion.button 
+          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center focus:outline-none"
           initial={{ opacity: 0, y: 10 }}
           animate={{ 
             opacity: 1, 
@@ -207,25 +207,33 @@ export default function Home() {
             y: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
             opacity: { duration: 0.8 }
           }}
+          onClick={() => {
+            window.scrollTo({
+              top: window.innerHeight,
+              behavior: 'smooth'
+            });
+          }}
+          aria-label="Scroll down"
         >
-          <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-1">
+          <div className="w-7 h-10 sm:w-8 sm:h-12 border-2 border-white/50 rounded-full flex justify-center p-1">
             <motion.div 
-              className="w-1 h-3 bg-white rounded-full"
-              animate={{ y: [0, 8] }}
+              className="w-1 h-2 sm:h-3 bg-white rounded-full"
+              animate={{ y: [0, 6] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             />
           </div>
-        </motion.div>
+          <span className="sr-only">Scroll down</span>
+        </motion.button>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -243,8 +251,8 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-blue-50">
-        <div className="container mx-auto px-6">
+      <section className="py-16 sm:py-20 bg-blue-50">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div 
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -253,11 +261,11 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <span className="text-blue-600 font-semibold">Our Services</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mt-2">Comprehensive Healthcare Solutions</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-900 mt-2 px-4">Comprehensive Healthcare Solutions</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto mt-4 rounded-full"></div>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -267,8 +275,8 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300">
+                <div className="p-6 sm:p-8 text-center flex flex-col h-full">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300">
                     {service.icon}
                   </div>
                   <h3 className="text-xl font-semibold mt-6 mb-3 text-blue-900 group-hover:text-blue-600 transition-colors duration-300">
@@ -305,29 +313,29 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <div className="container mx-auto px-6 text-center">
+      <section className="py-16 sm:py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to take control of your health?</h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 px-4">Ready to take control of your health?</h2>
+            <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
               Schedule an appointment with our expert healthcare providers today and experience the difference.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full max-w-md mx-auto px-4">
               <Link
                 to="/appointment"
-                className="px-8 py-4 bg-white text-blue-700 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg active:shadow-inner transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 Book an Appointment
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:+1234567890"
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-2.5 sm:px-6 sm:py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 active:bg-white/20 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <PhoneCall className="w-5 h-5" />
                 (123) 456-7890

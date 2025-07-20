@@ -96,7 +96,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-white min-h-screen py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-br from-blue-50 to-white min-h-screen py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -104,15 +104,15 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Get in Touch</h1>
-          <div className="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">Get in Touch</h1>
+          <div className="w-16 sm:w-20 h-1 bg-blue-600 mx-auto mb-4 sm:mb-6"></div>
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
             Have questions or want to book an appointment? We'd love to hear from you. 
             Fill out the form or use the contact information below.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Contact Information */}
           <motion.div 
             className="space-y-8"
@@ -123,16 +123,16 @@ export default function Contact() {
             {contactInfo.map((item, index) => (
               <motion.div 
                 key={index} 
-                className="flex items-start p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="flex items-start p-4 sm:p-5 md:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
                 variants={itemVariants}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <div className="flex-shrink-0 p-3 bg-blue-50 rounded-lg mr-4">
+                <div className="flex-shrink-0 p-2 sm:p-3 bg-blue-50 rounded-lg mr-3 sm:mr-4">
                   {item.icon}
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <p className="text-gray-600 whitespace-pre-line">{item.text}</p>
+                  <p className="text-gray-600 whitespace-pre-line text-sm sm:text-base">{item.text}</p>
                   {item.link && (
                     <a 
                       href={item.link} 
@@ -150,14 +150,14 @@ export default function Contact() {
 
           {/* Contact Form */}
           <motion.div 
-            className="lg:col-span-2 bg-white rounded-2xl shadow-lg overflow-hidden"
+            className="lg:col-span-2 bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="md:flex h-full">
+            <div className="flex flex-col md:flex-row h-full">
               {/* Map Section */}
-              <div className="hidden md:block md:w-1/2 bg-gray-100 relative">
+              <div className="h-64 md:h-auto md:w-1/2 bg-gray-100 relative">
                 <div className="w-full h-full">
                   <iframe
                     title="Clinic Location"
@@ -170,7 +170,7 @@ export default function Contact() {
                   ></iframe>
                 </div>
                 {/* Location overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white z-10">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 sm:p-4 text-white z-10">
                   <div className="flex items-center">
                     <MapPin size={20} className="mr-2 flex-shrink-0" />
                     <div>
@@ -182,8 +182,8 @@ export default function Contact() {
               </div>
 
               {/* Form Section */}
-              <div className="p-8 md:p-10 md:w-1/2">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+              <div className="p-5 sm:p-6 md:p-8 lg:p-10 md:w-1/2">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Send us a Message</h2>
                 
                 <AnimatePresence mode="wait">
                   {submitted ? (
@@ -269,7 +269,7 @@ export default function Contact() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className={`w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                          className={`w-full flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
                           {isSubmitting ? (
                             <>

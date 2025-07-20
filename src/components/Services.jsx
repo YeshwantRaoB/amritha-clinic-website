@@ -299,7 +299,7 @@ const ServiceCard = React.memo(({ service, onClick }) => {
   
   return (
     <motion.div
-      className={`relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-2xl ${service.bgColor} group`}
+      className={`relative overflow-hidden rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg transition-all duration-300 hover:shadow-xl sm:hover:shadow-2xl ${service.bgColor} group`}
       initial={prefersReducedMotion ? { opacity: 1 } : { y: 20, opacity: 0 }}
       whileInView={prefersReducedMotion ? {} : { y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -405,7 +405,7 @@ export default function Services() {
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to-green-50 min-h-screen">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white pt-24 pb-12">
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white pt-20 sm:pt-24 pb-12 sm:pb-16">
         <FloatingShapes />
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-blue-800/20"></div>
@@ -423,7 +423,7 @@ export default function Services() {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 px-4 sm:px-0"
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -431,7 +431,7 @@ export default function Services() {
             Our Medical Services
           </motion.h1>
           <motion.div
-            className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-blue-100 h-16 flex items-center justify-center"
+            className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-3xl mx-auto text-blue-100 min-h-[4rem] sm:min-h-[5rem] flex items-center justify-center px-4 sm:px-6"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -448,10 +448,10 @@ export default function Services() {
       </div>
 
       {/* Stats Section */}
-      <div className="py-16 bg-gradient-to-r from-gray-50 to-blue-50">
+      <div className="py-12 sm:py-16 bg-gradient-to-r from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-0"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -540,10 +540,10 @@ export default function Services() {
       </div>
 
       {/* Filter Section */}
-      <div className="py-8 bg-white">
+      <div className="py-6 sm:py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-0"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -554,7 +554,7 @@ export default function Services() {
                 onClick={() => {
                   setFilter(category.id);
                 }}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden ${
+                className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full font-medium transition-all duration-300 relative overflow-hidden text-sm sm:text-base ${
                   filter === category.id
                     ? 'bg-blue-600 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600'
@@ -576,7 +576,7 @@ export default function Services() {
       </div>
 
       {/* Services Section */}
-      <div className="py-16" ref={filterRef}>
+      <div className="py-10 sm:py-12 md:py-16" ref={filterRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
           <AnimatePresence mode="wait">
@@ -586,7 +586,7 @@ export default function Services() {
               animate="visible"
               exit="exit"
               variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
               role="list"
               aria-label="List of medical services"
             >
@@ -648,7 +648,7 @@ export default function Services() {
               role="document"
             >
               <div className="relative">
-                <div className="h-64 bg-gray-100 relative overflow-hidden">
+                <div className="h-48 sm:h-56 md:h-64 bg-gray-100 relative overflow-hidden">
                   <img
                     src={selectedService.image}
                     alt=""
@@ -680,7 +680,7 @@ export default function Services() {
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-5 md:p-6">
                   <p className="text-gray-700 mb-6">{selectedService.description}</p>
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">Key Features</h3>
@@ -696,10 +696,10 @@ export default function Services() {
                       ))}
                     </ul>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-end gap-3">
+                  <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3">
                     <button
                       onClick={() => setSelectedService(null)}
-                      className="px-6 py-3 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                      className="px-4 sm:px-5 py-2 sm:py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm sm:text-base"
                     >
                       Back to Services
                     </button>
@@ -708,7 +708,7 @@ export default function Services() {
                         setSelectedService(null);
                         navigate('/contact', { state: { service: selectedService.title } });
                       }}
-                      className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center"
+                      className="px-4 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center text-sm sm:text-base"
                     >
                       Book Appointment
                       <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
