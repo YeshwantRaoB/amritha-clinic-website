@@ -305,9 +305,7 @@ export default function Contact() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </form>
-{{ ... }}
-                    </motion.form>
+                </form>                    </motion.form>
                   )}
                 </AnimatePresence>
               </div>
