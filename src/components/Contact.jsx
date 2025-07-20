@@ -6,7 +6,7 @@ const contactInfo = [
   { 
     icon: <MapPin size={24} className="text-blue-600" />, 
     title: 'Our Location',
-    text: '123 Medical Center Dr, Health City, HC 12345',
+    text: 'KMC, Nandigudda Rd, next to Chakrapani Temple before, Attavar, Mangaluru, Karnataka 575001',
     link: '#'
   },
   { 
