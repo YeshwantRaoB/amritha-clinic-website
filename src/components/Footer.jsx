@@ -132,7 +132,7 @@ export default function Footer() {
             Yeshwant Rao
           </motion.a>
           <span>•</span>
-          <span>Content support by</span>
+          <span>Idea & content support by:</span>
           <motion.a
             href="https://dummy-link-peer-mohammad.com/"
             target="_blank"
