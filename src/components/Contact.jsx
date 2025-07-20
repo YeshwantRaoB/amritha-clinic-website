@@ -160,11 +160,11 @@ export default function Contact() {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div 
-            className="lg:col-span-2 bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <motion.div
+            className="lg:col-span-2 bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl p-6 sm:p-8 md:p-10 border border-blue-100 flex flex-col justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <div className="flex flex-col md:flex-row h-full">
               {/* Map Section */}
@@ -234,70 +234,79 @@ export default function Contact() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <div className="space-y-1">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                          placeholder="John Doe"
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-1">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                          placeholder="your.email@example.com"
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-1">
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                        <textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          rows="4"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                          placeholder="How can we help you?"
-                          required
-                        ></textarea>
-                      </div>
-
-                      <div className="pt-2">
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className={`w-full flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                              </svg>
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              <Send size={18} className="mr-2" />
-                              Send Message
-                            </>
-                          )}
-                        </button>
-                      </div>
+                      <form onSubmit={handleSubmit} className="space-y-7 flex-1">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="peer block w-full rounded-lg border border-blue-200 bg-white/80 px-4 pt-5 pb-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all placeholder-transparent"
+                      placeholder="Full Name"
+                    />
+                    <label htmlFor="name" className="absolute left-3 top-2 text-xs text-blue-700 font-medium transition-all peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-700 bg-white/80 px-1 rounded">
+                      Full Name
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="peer block w-full rounded-lg border border-blue-200 bg-white/80 px-4 pt-5 pb-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all placeholder-transparent"
+                      placeholder="Email Address"
+                    />
+                    <label htmlFor="email" className="absolute left-3 top-2 text-xs text-blue-700 font-medium transition-all peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-700 bg-white/80 px-1 rounded">
+                      Email Address
+                    </label>
+                  </div>
+                  <div className="relative">
+                    <textarea
+                      name="message"
+                      id="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      className="peer block w-full rounded-lg border border-blue-200 bg-white/80 px-4 pt-5 pb-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all placeholder-transparent resize-none"
+                      placeholder="Your Message"
+                    />
+                    <label htmlFor="message" className="absolute left-3 top-2 text-xs text-blue-700 font-medium transition-all peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-700 bg-white/80 px-1 rounded">
+                      Message
+                    </label>
+                  </div>
+                  <motion.button
+                    type="submit"
+                    className="w-full py-2.5 px-6 rounded-lg bg-gradient-to-r from-blue-700 to-blue-600 text-white font-semibold shadow-md hover:from-blue-800 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.02 }}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? <Send className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </motion.button>
+                  <AnimatePresence>
+                    {submitStatus.message && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className={`mt-2 text-center text-sm font-medium ${submitStatus.success ? 'text-green-600' : 'text-red-500'}`}
+                      >
+                        {submitStatus.success ? <CheckCircle className="inline w-4 h-4 mr-1 align-middle" /> : <XCircle className="inline w-4 h-4 mr-1 align-middle" />}
+                        {submitStatus.message}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </form>
+{{ ... }}
                     </motion.form>
                   )}
                 </AnimatePresence>
