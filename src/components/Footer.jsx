@@ -8,67 +8,155 @@ const socialLinks = [
   { name: 'Instagram', icon: <InstagramIcon />, url: 'https://instagram.com/YourPage' },
 ];
 
+const footerVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (i) => ({ opacity: 1, x: 0, transition: { delay: 0.1 + i * 0.04 } })
+};
+
 export default function Footer() {
   return (
     <motion.footer
-      className="bg-gray-800 text-gray-300 pt-12 pb-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+      className="relative z-10 bg-white/70 backdrop-blur-xl shadow-2xl text-gray-700 pt-12 pb-4"
+      variants={footerVariants}
+      initial="hidden"
+      animate="visible"
     >
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 items-start">
         {/* About */}
-        <div>
-          <h3 className="text-white text-lg font-semibold mb-4">About Amritha Clinic</h3>
-          <p className="text-gray-400 text-sm leading-relaxed">
-            Providing compassionate, high-quality care since 2005. Our multidisciplinary team
-            ensures personalized treatment plans for every patient.
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          <h3 className="text-blue-900 text-lg font-bold mb-4 tracking-wide">About Amritha Clinic</h3>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            Providing compassionate, high-quality care since 2005. Our multidisciplinary team ensures personalized treatment plans for every patient. We blend modern medicine with a personal touch for every family.
           </p>
-        </div>
+        </motion.div>
 
         {/* Quick Links */}
-        <div>
-          <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
-          <ul className="space-y-2">
-            {['Home', 'About Us', 'Services', 'Gallery', 'FAQ', 'Careers', 'Contact'].map(link => (
-              <li key={link}>
-                <Link
-                  to={link === 'Home' ? '/' : `/${link.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="text-gray-400 hover:text-white transition"
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={container => ({})}
+        >
+          <h3 className="text-blue-900 text-lg font-bold mb-4 tracking-wide">Quick Links</h3>
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
+            {/* First Group */}
+            <ul className="space-y-2">
+              {['Home', 'About Us', 'Services', 'Gallery'].map((link, i) => (
+                <motion.li key={link} custom={i} variants={linkVariants} initial="hidden" animate="visible">
+                  <Link
+                    to={link === 'Home' ? '/' : `/${link.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 inline-block"
+                  >
+                    {link}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+            
+            {/* Second Group */}
+            <ul className="space-y-2">
+              {['FAQ', 'Careers', 'Contact'].map((link, i) => (
+                <motion.li 
+                  key={link} 
+                  custom={i + 4} 
+                  variants={linkVariants} 
+                  initial="hidden" 
+                  animate="visible"
                 >
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  <Link
+                    to={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="text-gray-600 hover:text-blue-700 font-medium transition-colors duration-200 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 inline-block"
+                  >
+                    {link}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
 
         {/* Social Media */}
-        <div>
-          <h3 className="text-white text-lg font-semibold mb-4">Follow Us</h3>
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          <h3 className="text-blue-900 text-lg font-bold mb-4 tracking-wide">Follow Us</h3>
           <div className="flex space-x-4">
-            {socialLinks.map(({ name, icon, url }) => (
+            {socialLinks.map(({ name, icon, url }, i) => (
               <motion.a
                 key={name}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-gray-700 rounded-full hover:bg-gray-600 transition"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.3 }}
-                whileHover={{ scale: 1.2 }}
+                className="p-2 bg-gradient-to-br from-blue-100 to-blue-300 text-blue-700 rounded-full shadow hover:bg-blue-200 transition-all border border-blue-100"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.35 + i * 0.07, type: 'spring' }}
+                whileHover={{ scale: 1.15, backgroundColor: '#e0f2fe', boxShadow: '0 4px 20px 0 rgba(37,99,235,0.08)' }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={name}
               >
                 {icon}
               </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} Amritha Multispeciality Clinic & Diagnostic Center. All rights reserved.
-      </div>
+      {/* Animated Divider */}
+      <motion.div
+        className="mx-auto w-32 h-1.5 rounded-full mt-14 mb-6 bg-gradient-to-r from-blue-400/80 via-blue-200/60 to-cyan-200/80 animate-pulse"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ delay: 0.5, duration: 0.7, type: 'spring' }}
+      />
+
+      {/* Credits Section */}
+      <motion.div
+        className="text-center text-gray-500 text-sm mt-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+      >
+        <div className="mb-1">
+          © {new Date().getFullYear()} Amritha Multispeciality Clinic & Diagnostic Center. All rights reserved.
+        </div>
+        <div className="mt-2">
+          Website designed &amp; developed by{' '}
+          <motion.a
+            href="https://yrb-portfolio.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:underline font-semibold transition-colors duration-200"
+            whileHover={{ color: '#0ea5e9', scale: 1.05 }}
+          >
+            Yeshwant Rao
+          </motion.a>
+          .
+        </div>
+        <div>
+          Concept &amp; content support by{' '}
+          <motion.a
+            href="https://dummy-link-peer-mohammad.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:underline font-semibold transition-colors duration-200"
+            whileHover={{ color: '#0ea5e9', scale: 1.05 }}
+          >
+            Peer Mohammad
+          </motion.a>
+          .
+        </div>
+      </motion.div>
     </motion.footer>
   );
 }

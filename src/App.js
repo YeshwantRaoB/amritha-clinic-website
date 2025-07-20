@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -27,6 +29,37 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Scroll-to-top Button
+function ScrollToTopButton() {
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleClick = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <motion.button
+      className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.3, type: 'spring' }}
+      onClick={handleClick}
+      aria-label="Scroll to top"
+      style={{ pointerEvents: visible ? 'auto' : 'none' }}
+    >
+      <ArrowUp className="w-6 h-6" />
+    </motion.button>
+  );
+}
+
 export default function App() {
   return (
     <Router>
@@ -53,6 +86,8 @@ export default function App() {
 
         {/* Footer */}
         <Footer />
+        {/* Scroll-to-top Button */}
+        <ScrollToTopButton />
       </div>
     </Router>
   );
